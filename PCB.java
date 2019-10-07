@@ -1,4 +1,8 @@
 //Structure dedicated to holding process information
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Iterator;
+import java.util.Scanner;
 
 enum State{	
 	NEW, READY, RUNNING, WAITING, TERMINATED;
@@ -6,20 +10,46 @@ enum State{
 
 public class PCB {
 	
-	static int numberOfProcesses = 0;
 	public int processId;
+	public int runtime;
+	public Iterator<instruction> programCounter;
 	public State currentState;
 	
-	public PCB() {
+	public PCB(int id, int runtime, Iterator<instruction> text) {
 		
-		initialize();
-		numberOfProcesses++;
-		System.out.println("Creating new PCB ID: " + processId + " ...");
+		processId = id;
+		this.runtime = runtime;
+		programCounter = text;
 	}
 	
-	public void initialize() {
+	public void changeStateToReady() {
 		
-		currentState = State.NEW;
-		processId = numberOfProcesses + 1;
+		currentState = State.READY;
+	}
+	
+	public void changeStateToWaiting() {
+		
+		currentState = State.WAITING;
+	}
+	
+	public void changeStateToRunning() {
+		
+		currentState = State.RUNNING;
+	}
+	
+	public void changeStateToTerminated() {
+		
+		currentState = State.TERMINATED;
+	}
+	
+	public int getID() {
+		
+		return processId;
+	}
+	
+	public instruction nextInstruction() {
+		
+		instruction nextInstruction = programCounter.next();
+		return nextInstruction;
 	}
 }

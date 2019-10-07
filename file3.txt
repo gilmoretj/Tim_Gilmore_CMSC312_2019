@@ -1,0 +1,9 @@
+Name: Game cartridge processor
+Total runtime: 100
+Memory: 20
+
+CALCULATE 10
+CALCULATE 20
+CALCULATE 30
+CALCULATE 40
+EXE

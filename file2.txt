@@ -1,0 +1,10 @@
+Name: Touchscreen processor
+Total runtime: 225
+Memory: 225
+
+CALCULATE 100
+I/O 20
+CALCULATE 25
+I/O 10
+CALCULATE 100
+EXE

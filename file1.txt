@@ -1,0 +1,8 @@
+Name: Audio processor
+Total runtime: 100
+Memory: 20
+
+CALCULATE 50
+I/O 50
+CALCULATE 50
+EXE

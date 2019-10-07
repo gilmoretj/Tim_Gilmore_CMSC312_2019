@@ -7,46 +7,51 @@ public class operatingSystemSimulater {
 	public static void main(String[]args) {
 		
 		Scanner in = new Scanner(System.in);
-		String filename;
-		int desiredNumberOfProcesses;
+		String userInput;
+		int numberOfProcesses;
 		
 		boolean finished = false;
 		
 		while(!finished){
 			
-			System.out.println("Enter file name + # of processes you wish to create: ex. file.txt 5");
-			System.out.println("Or Enter SHUTDOWN to end program");
+			System.out.println("1: Type a valid filename to create a process followed by the number of processes to create");
+			System.out.println("2: Type EXECUTE to execute current list of processes");
+			System.out.println("3: Type SHUTDOWN to end OS simulator");
+			System.out.print("> ");
 			
-			filename = in.next();
+			userInput = in.next();
+			System.out.println();
 			
-			if(!filename.equalsIgnoreCase("SHUTDOWN")) {
+			if(userInput.equalsIgnoreCase("EXECUTE")) {
+			
+				scheduler.runScheduler();
+			}
+			
+			else if(userInput.equalsIgnoreCase("SHUTDOWN")) {
 				
-				desiredNumberOfProcesses = in.nextInt();
-				
-				try {
-					
-					File programFile = new File(filename);
-				
-					for(int i = 0; i < desiredNumberOfProcesses; i++) {
-						
-						PCB newProcess = loader.readProgramFileAndCreateProcess(programFile);
-						
-						scheduler.addToJobQueue(newProcess);
-					}
-				
-				}
-				
-				catch(FileNotFoundException e) {
-					
-					System.out.println("File: " + filename + " not found...");
-				}
-				
-				System.out.println();
+				finished = true;
 			}
 			
 			else {
 				
-				finished = true;
+				File programFile = new File(userInput);
+				
+				numberOfProcesses = in.nextInt();
+			
+				try {
+						
+					for(int i = 1; i <= numberOfProcesses; i++) {
+						
+						PCB newProcess = processCreator.createProcess(programFile);
+						scheduler.addToReadyQueue(newProcess);
+					}
+				}					
+				
+				catch(FileNotFoundException e) {
+						
+					System.out.println("ERROR: please check that you are spelling the command correctly or that the file exists!");
+					System.out.println();
+				}
 			}
 		}
 		
